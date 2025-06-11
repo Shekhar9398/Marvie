@@ -11,12 +11,11 @@ import FirebaseAuth
 struct SignInScreen: View {
     @State private var userEmail: String = ""
     @State private var userPassword: String = ""
-    @State private var showSignUpScreen: Bool = false
-    @State private var showHomeScreen: Bool = false
+    @State private var path = NavigationPath()
     
     var body: some View {
         ///MARK:- Welcome Screen
-        NavigationStack {
+        NavigationStack(path: $path){
             VStack(alignment: .leading, spacing: 30){
                 
                 Spacer()
@@ -96,7 +95,7 @@ struct SignInScreen: View {
                 ///Sign in, forgot password and Create account button
                 VStack(alignment: .center, spacing: 20) {
                     Button {
-                       signInUser()
+                        signInUser()
                     } label: {
                         Text("Sign In")
                     }
@@ -111,7 +110,7 @@ struct SignInScreen: View {
                     
                     //goto Sign Up Screen
                     Button {
-                        showSignUpScreen = true
+                        path.append("SignUp1")
                     } label: {
                         Text("Create an account")
                     }
@@ -124,11 +123,19 @@ struct SignInScreen: View {
             .padding(.horizontal)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(AppColor.darkBackground1)
-            .navigationDestination(isPresented: $showSignUpScreen) {
-                SignUpScreenOne()
-            }
-            .navigationDestination(isPresented: $showHomeScreen) {
-                HomeScreenView()
+            .navigationDestination(for: String.self) { value in
+                switch value {
+                case "SignUp1":
+                    SignUpScreenOne(path: $path)
+                case "SignUp2":
+                    SignUpScreenTwo(path: $path, userEmail: "test@example.com")
+                case "SignUp3":
+                    SignUpScreenThree(path: $path)
+                case "HomeScreen":
+                    HomeScreenView(path: $path)
+                default:
+                    EmptyView()
+                }
             }
             
         }
@@ -147,7 +154,7 @@ struct SignInScreen: View {
                 return
             }else{
                 print("Verification Succussful")
-                showHomeScreen = true
+                path.append("HomeScreen")
             }
         }
     }

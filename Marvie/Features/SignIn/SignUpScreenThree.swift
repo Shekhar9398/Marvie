@@ -10,6 +10,7 @@ import SwiftUI
 struct SignUpScreenThree: View {
     @State private var userPhone: String = ""
     @Environment(\.dismiss) private var dismiss
+    @Binding var path: NavigationPath
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30){
@@ -78,7 +79,7 @@ struct SignUpScreenThree: View {
                 
                 //goto next sign up screen
                 Button {
-                    //not decided
+                    path.removeLast(path.count)
                 } label: {
                     Text("Done")
                 }
@@ -100,5 +101,5 @@ struct SignUpScreenThree: View {
 }
 
 #Preview {
-    SignUpScreenThree()
+    SignUpScreenThree(path: .constant(NavigationPath()))
 }

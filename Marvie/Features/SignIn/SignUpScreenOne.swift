@@ -12,9 +12,10 @@ struct SignUpScreenOne: View {
     @State private var userName: String = ""
     @Environment(\.dismiss) private var dismiss
     @State private var gotoNextScreen: Bool = false
+    @Binding var path: NavigationPath
     
     var body: some View {
-        NavigationStack {
+        
             VStack(alignment: .leading, spacing: 30){
                 
                 Spacer()
@@ -102,7 +103,7 @@ struct SignUpScreenOne: View {
                     
                     //goto next sign up screen
                     Button {
-                        gotoNextScreen = true
+                        validateUser()
                     } label: {
                         Text("Next")
                     }
@@ -119,14 +120,18 @@ struct SignUpScreenOne: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(AppColor.darkBackground1)
             .navigationBarBackButtonHidden()
+    }
+    
+    private func validateUser(){
+        guard !userEmail.isEmpty, !userName.isEmpty else {
+            print("Please enter email and password")
+            return
         }
-        .navigationDestination(isPresented: $gotoNextScreen) {
-            SignUpScreenTwo(userEmail: userEmail)
-        }
-
+        
+        path.append("SignUp2")
     }
 }
 
 #Preview {
-   SignUpScreenOne()
+    SignUpScreenOne(path: .constant(NavigationPath()))
 }
