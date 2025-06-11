@@ -62,13 +62,14 @@ struct OnboardingView: View {
                             }
                             .padding(.bottom, 40)
                         }
-                        .onTapGesture {
-                            withAnimation(.easeInOut(duration: 0.4)) {
-                                currentPage = 1
-                            }
-                        }
+                     
                     }
                     .transition(.move(edge: .leading))
+                }
+            }
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.4)) {
+                    currentPage = 1
                 }
             }
             .animation(.easeInOut(duration: 0.4), value: currentPage)
