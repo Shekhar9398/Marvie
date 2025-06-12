@@ -15,7 +15,7 @@ struct SignUpScreenTwo: View {
     @State private var gotoNextScreen: Bool = false
     @Binding var path: NavigationPath
     
-    var userEmail: String
+    @Binding var userEmail: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30){
@@ -126,29 +126,48 @@ struct SignUpScreenTwo: View {
     
     // MARK: - Firebase Auth Sign Up Method
     private func signUpUser() {
+        print("Starting signUpUser()")
+        print("Email entered: \(userEmail)")
+        print("Create Password: \(createPassword)")
+        print("Confirm Password: \(confirmPassword)")
+
+        // Check if any password field is empty
         guard !createPassword.isEmpty, !confirmPassword.isEmpty else {
-            print("Please fill all fields")
+            print("Validation failed: One or both password fields are empty.")
             return
         }
-        
+
+        // Check if passwords match
         guard createPassword == confirmPassword else {
-            print("Passwords do not match")
+            print("Validation failed: Passwords do not match.")
             return
         }
-        
+
+        print("Input validation passed. Attempting to create user with Firebase Auth...")
+
         Auth.auth().createUser(withEmail: userEmail, password: confirmPassword) { result, error in
-            if let error = error {
-                print("\(error.localizedDescription)")
+            if let error = error as NSError? {
+                print("Firebase createUser error: \(error.localizedDescription)")
+                print("Error code: \(error.code)")
+                print("Full error: \(error)")
                 return
-            }else{
-                path.append("SignUp3")
             }
-            
+
+            // If user creation is successful
+            print("User created successfully")
+            if let user = result?.user {
+                print("User ID: \(user.uid)")
+                print("User Email: \(user.email ?? "nil")")
+            }
+
+            path.append("SignUp3")
+            print("Navigation path updated to: SignUp3")
         }
     }
+
 }
 
 
 #Preview {
-    SignUpScreenTwo(path: .constant(NavigationPath()), userEmail: "test@example.com")
+    SignUpScreenTwo(path: .constant(NavigationPath()), userEmail: .constant("Test@gmail.com"))
 }

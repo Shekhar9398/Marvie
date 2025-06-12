@@ -6,120 +6,122 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct SignUpScreenOne: View {
-    @State private var userEmail: String = ""
     @State private var userName: String = ""
     @Environment(\.dismiss) private var dismiss
     @State private var gotoNextScreen: Bool = false
     @Binding var path: NavigationPath
-    
+    @Binding var userEmail: String
+
+
     var body: some View {
         
-            VStack(alignment: .leading, spacing: 30){
-                
+        VStack(alignment: .leading, spacing: 30){
+            
+            Spacer()
+            
+            HStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .frame(width: 45, height: 43)
+                    .foregroundStyle(AppColor.accentGreen)
+                    .shadow(color: AppColor.darkGreen, radius: 4, x: -2, y: 2)
                 Spacer()
+            }
+            
+            Text("Hello!")
+                .font(AppFont.boldSF(size: 60))
+                .foregroundStyle(AppColor.white)
+            
+            Text("Lets introduce")
+                .font(AppFont.regularSF(size: 30))
+                .foregroundStyle(AppColor.gray1)
+            
+            
+            //User FullName textfield
+            HStack {
+                Image("usernameIcon")
+                    .resizable()
+                    .frame(width: 38, height: 48)
+                    .padding(.trailing)
                 
-                HStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 45, height: 43)
-                        .foregroundStyle(AppColor.accentGreen)
-                        .shadow(color: AppColor.darkGreen, radius: 4, x: -2, y: 2)
-                    Spacer()
-                }
-                
-                Text("Hello!")
-                    .font(AppFont.boldSF(size: 60))
-                    .foregroundStyle(AppColor.white)
-                
-                Text("Lets introduce")
-                    .font(AppFont.regularSF(size: 30))
-                    .foregroundStyle(AppColor.gray1)
-                
-                
-                //User FullName textfield
-                HStack {
-                    Image("usernameIcon")
-                        .resizable()
-                        .frame(width: 38, height: 48)
-                        .padding(.trailing)
-                    
-                    ZStack(alignment: .leading) {
-                        if userEmail.isEmpty {
-                            Text("Your Email")
-                                .foregroundStyle(AppColor.gray1)
-                                .font(AppFont.mediumSF(size: 25))
-                        }
-                        
-                        TextField("", text: $userEmail)
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                            .font(AppFont.boldSF(size: 25))
+                ZStack(alignment: .leading) {
+                    if userEmail.isEmpty {
+                        Text("Your Email")
                             .foregroundStyle(AppColor.gray1)
+                            .font(AppFont.mediumSF(size: 25))
                     }
-                }
-                
-                Rectangle()
-                    .frame(height: 1)
-                    .foregroundStyle(.darkBackground2)
-                    .padding(.horizontal, 50)
-                
-                //UserName textfield
-                HStack {
-                    Image("usernameIcon")
-                        .resizable()
-                        .frame(width: 38, height: 48)
-                        .padding(.trailing)
                     
-                    ZStack(alignment: .leading) {
-                        if userName.isEmpty {
-                            Text("Username")
-                                .foregroundStyle(AppColor.gray1)
-                                .font(AppFont.mediumSF(size: 25))
-                        }
-                        
-                        TextField("", text: $userName)
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                            .font(AppFont.boldSF(size: 25))
+                    TextField("", text: $userEmail)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .font(AppFont.boldSF(size: 25))
+                        .foregroundStyle(AppColor.gray1)
+                }
+            }
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(.darkBackground2)
+                .padding(.horizontal, 50)
+            
+            //UserName textfield
+            HStack {
+                Image("usernameIcon")
+                    .resizable()
+                    .frame(width: 38, height: 48)
+                    .padding(.trailing)
+                
+                ZStack(alignment: .leading) {
+                    if userName.isEmpty {
+                        Text("Username")
                             .foregroundStyle(AppColor.gray1)
+                            .font(AppFont.mediumSF(size: 25))
                     }
-                }
-                
-                Rectangle()
-                    .frame(height: 1)
-                    .foregroundStyle(.darkBackground2)
-                    .padding(.horizontal, 50)
-                
-                ///Next button
-                HStack(alignment: .center, spacing: 20) {
-                    //navigate back to welcome screen
-                    Button{
-                        dismiss()
-                    }label: {
-                        Image(systemName: "arrow.left")
-                    }
-                    .buttonStyle(SquareButtonStyle(backgroundColor: AppColor.darkGreen, foregroundColor: AppColor.accentGreen))
                     
-                    //goto next sign up screen
-                    Button {
-                        validateUser()
-                    } label: {
-                        Text("Next")
-                    }
-                    .buttonStyle(LongButtonStyle(backgroundColor: AppColor.accentGreen, foregroundColor: AppColor.white, length: 200))
-                    
+                    TextField("", text: $userName)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .font(AppFont.boldSF(size: 25))
+                        .foregroundStyle(AppColor.gray1)
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.bottom)
+            }
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(.darkBackground2)
+                .padding(.horizontal, 50)
+            
+            ///Next button
+            HStack(alignment: .center, spacing: 20) {
+                //navigate back to welcome screen
+                Button{
+                    dismiss()
+                }label: {
+                    Image(systemName: "arrow.left")
+                }
+                .buttonStyle(SquareButtonStyle(backgroundColor: AppColor.darkGreen, foregroundColor: AppColor.accentGreen))
                 
-                Spacer()
+                //goto next sign up screen
+                Button {
+                    validateUser()
+                } label: {
+                    Text("Next")
+                }
+                .buttonStyle(LongButtonStyle(backgroundColor: AppColor.accentGreen, foregroundColor: AppColor.white, length: 200))
                 
             }
-            .padding(.horizontal)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(AppColor.darkBackground1)
-            .navigationBarBackButtonHidden()
+            .frame(maxWidth: .infinity)
+            .padding(.bottom)
+            
+            Spacer()
+            
+        }
+        .padding(.horizontal)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(AppColor.darkBackground1)
+        .navigationBarBackButtonHidden()
     }
     
     private func validateUser(){
@@ -128,10 +130,28 @@ struct SignUpScreenOne: View {
             return
         }
         
-        path.append("SignUp2")
+        Task{
+            path.append("SignUp2")
+            await addUserToDatabase()
+        }
+        
+    }
+    
+    private func addUserToDatabase() async{
+        let db = Firestore.firestore()
+        
+        do {
+            let ref = try await db.collection("users").addDocument(data: [
+                "userEmail": userEmail,
+                "userName": userName
+            ])
+            print("Document added with ID: \(ref.documentID)")
+        } catch {
+            print("Error adding document: \(error)")
+        }
     }
 }
 
 #Preview {
-    SignUpScreenOne(path: .constant(NavigationPath()))
+    SignUpScreenOne(path: .constant(NavigationPath()), userEmail: .constant("test@gmail.com"))
 }

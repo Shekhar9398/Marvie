@@ -12,6 +12,8 @@ struct SignInScreen: View {
     @State private var userEmail: String = ""
     @State private var userPassword: String = ""
     @State private var path = NavigationPath()
+    @State private var signUpEmail: String = ""
+
     
     var body: some View {
         ///MARK:- Welcome Screen
@@ -119,6 +121,8 @@ struct SignInScreen: View {
                 .frame(maxWidth: .infinity)
                 .padding(.bottom)
                 
+                Spacer()
+                
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -126,9 +130,9 @@ struct SignInScreen: View {
             .navigationDestination(for: String.self) { value in
                 switch value {
                 case "SignUp1":
-                    SignUpScreenOne(path: $path)
+                    SignUpScreenOne(path: $path, userEmail: $signUpEmail)
                 case "SignUp2":
-                    SignUpScreenTwo(path: $path, userEmail: "test@example.com")
+                    SignUpScreenTwo(path: $path, userEmail: $signUpEmail)
                 case "SignUp3":
                     SignUpScreenThree(path: $path)
                 case "HomeScreen":
