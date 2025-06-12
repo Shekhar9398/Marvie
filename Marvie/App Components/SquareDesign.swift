@@ -7,16 +7,18 @@
 
 import SwiftUI
 
-struct RedSquareView: View {
+struct SquareDesign: View {
     var width: Double = 164
     var height: Double = 161
+    var color: Color
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 15)
             .frame(width: width, height: height)
-            .foregroundStyle(AppColor.red)
+            .foregroundColor(color)
     }
 }
 
 #Preview {
-    RedSquareView(width: 164, height: 161)
+    SquareDesign(width: 164, height: 161, color: AppColor.red)
 }

@@ -7,17 +7,18 @@
 
 import SwiftUI
 
-struct RedCircleView: View {
+struct CircleDesign: View {
     var width: CGFloat = 121
     var height: CGFloat = 117
+    var color: Color
     
     var body: some View {
         Circle()
             .frame(width: width, height: height)
-            .foregroundStyle(AppColor.red)
+            .foregroundStyle(color)
     }
 }
 
 #Preview {
-    RedCircleView(width: 121, height: 117)
+    CircleDesign(width: 121, height: 117, color: AppColor.red)
 }

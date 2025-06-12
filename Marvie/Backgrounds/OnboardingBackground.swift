@@ -20,27 +20,27 @@ struct OnboardingBackground: View {
             VStack {
                 HStack {
                     Spacer()
-                    RedSquareView(width: 141, height: 138)
+                    SquareDesign(width: 141, height: 138, color: AppColor.red)
                         .padding(.top, 0)
                         .padding(.trailing, -15)
                 }
                 
                 HStack {
-                    RedCircleView()
+                    CircleDesign(color: AppColor.red)
                         .padding(.leading, -36)
                         .padding(.top, 58)
                     Spacer()
                 }
                 
                 HStack{
-                    RedSquareView()
+                    SquareDesign(color: AppColor.red)
                         .padding(.top, 182)
                         .padding(.leading, 150)
                     Spacer()
                 }
                 
                 HStack{
-                    RedSquareView(width: 173, height: 171)
+                    SquareDesign(width: 173, height: 171, color: AppColor.red)
                         .padding(.leading, -36)
                         .padding(.top, 36)
                     Spacer()
