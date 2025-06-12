@@ -126,45 +126,25 @@ struct SignUpScreenTwo: View {
     
     // MARK: - Firebase Auth Sign Up Method
     private func signUpUser() {
-        print("Starting signUpUser()")
-        print("Email entered: \(userEmail)")
-        print("Create Password: \(createPassword)")
-        print("Confirm Password: \(confirmPassword)")
-
-        // Check if any password field is empty
         guard !createPassword.isEmpty, !confirmPassword.isEmpty else {
-            print("Validation failed: One or both password fields are empty.")
+            print("Please fill in all fields")
             return
         }
 
-        // Check if passwords match
         guard createPassword == confirmPassword else {
-            print("Validation failed: Passwords do not match.")
+            print("password mismatched")
             return
         }
-
-        print("Input validation passed. Attempting to create user with Firebase Auth...")
 
         Auth.auth().createUser(withEmail: userEmail, password: confirmPassword) { result, error in
             if let error = error as NSError? {
                 print("Firebase createUser error: \(error.localizedDescription)")
-                print("Error code: \(error.code)")
-                print("Full error: \(error)")
                 return
             }
 
-            // If user creation is successful
-            print("User created successfully")
-            if let user = result?.user {
-                print("User ID: \(user.uid)")
-                print("User Email: \(user.email ?? "nil")")
-            }
-
             path.append("SignUp3")
-            print("Navigation path updated to: SignUp3")
         }
     }
-
 }
 
 

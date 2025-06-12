@@ -41,4 +41,15 @@ enum AppColor {
     static let darkBackground1 = Color("darkBackground1")
     static let darkBackground2 = Color("darkBackground2")
     static let darkBackground3 = Color("darkBackground3")
+    
+    /// Returns a random color from the main color set
+      static var randomColor: Color {
+          let allColors: [Color] = [
+              red, orange, yellow, green, blue, purple,
+              lightRed, lightOrange, lightYellow, lightGreen, lightBlue, lightPurple,
+              darkRed, darkOrange, darkYellow, darkGreen, darkBlue, darkPurple,
+              accentGreen, gray1, gray2, gray3
+          ]
+          return allColors.randomElement() ?? red
+      }
 }
