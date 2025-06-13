@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct FeedBgView: View {
+struct FeedBackground: View {
     
-    let primaryColors: [Color] = [AppColor.red, AppColor.yellow, AppColor.accentGreen, AppColor.purple]
-    let secondaryColors: [Color] = [AppColor.lightRed, AppColor.lightYellow, AppColor.darkGreen, AppColor.lightPurple]
+    private let primaryColors: [Color] = [AppColor.red, AppColor.yellow, AppColor.lightGreen, AppColor.purple]
+    private let secondaryColors: [Color] = [AppColor.lightRed, AppColor.lightYellow, AppColor.accentGreen, AppColor.lightPurple]
     
     // Get a consistent random index
     let randomIndex = Int.random(in: 0..<4)
@@ -45,5 +45,5 @@ struct FeedBgView: View {
 }
 
 #Preview {
-    FeedBgView()
+    FeedBackground()
 }

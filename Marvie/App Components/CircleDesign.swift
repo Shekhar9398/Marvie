@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CircleDesign: View {
-    var width: CGFloat = 121
-    var height: CGFloat = 117
+    var width: CGFloat
+    var height: CGFloat 
     var color: Color
     
     var body: some View {

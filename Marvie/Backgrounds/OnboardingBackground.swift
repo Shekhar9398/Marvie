@@ -26,7 +26,7 @@ struct OnboardingBackground: View {
                 }
                 
                 HStack {
-                    CircleDesign(color: AppColor.red)
+                    CircleDesign(width: 121, height: 117, color: AppColor.red)
                         .padding(.leading, -36)
                         .padding(.top, 58)
                     Spacer()
