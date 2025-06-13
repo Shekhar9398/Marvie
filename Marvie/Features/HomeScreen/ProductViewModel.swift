@@ -18,9 +18,9 @@ class ProductViewModel: ObservableObject {
                 switch result {
                 case .success(let products):
                     self?.products = products
-                    print("Products fetched")
+                    Logger.log("Products fetched")
                 case .failure(let error):
-                    print("Error while fetching products: \(error.localizedDescription)")
+                    Logger.log("Error while fetching products: \(error.localizedDescription)")
                 }
             }
         }

@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 // MARK: - Product Model
 struct Product: Codable, Identifiable, Hashable {
     let id: Int

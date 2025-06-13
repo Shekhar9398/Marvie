@@ -126,7 +126,7 @@ struct SignUpScreenOne: View {
     
     private func validateUser(){
         guard !userEmail.isEmpty, !userName.isEmpty else {
-            print("Please enter email and password")
+            Logger.log("Please enter email and password")
             return
         }
         
@@ -145,9 +145,9 @@ struct SignUpScreenOne: View {
                 "userEmail": userEmail,
                 "userName": userName
             ])
-            print("Document added with ID: \(ref.documentID)")
+            Logger.log("Document added with ID: \(ref.documentID)")
         } catch {
-            print("Error adding document: \(error)")
+            Logger.log("Error adding document: \(error)")
         }
     }
 }

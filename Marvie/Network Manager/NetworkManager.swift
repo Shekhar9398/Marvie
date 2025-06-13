@@ -28,17 +28,20 @@ class NetworkManager {
     func fetchData<T: Decodable>(from urlStr: String, responseType: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
         guard let url = URL(string: urlStr) else {
             completion(.failure(NetworkError.invalidURL))
+            Logger.log("Invalid API Url")
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let _ = error {
                 completion(.failure(NetworkError.dataTaskFailed))
+                Logger.log("Datatask failed")
                 return
             }
             
             guard let data = data else {
                 completion(.failure(NetworkError.noData))
+                Logger.log("No Data in the response")
                 return
             }
             
@@ -47,6 +50,7 @@ class NetworkManager {
                 completion(.success(decodedData))
             } catch {
                 completion(.failure(NetworkError.unableToDecode))
+                Logger.log("Error while decoding data")
             }
         }.resume()
     }

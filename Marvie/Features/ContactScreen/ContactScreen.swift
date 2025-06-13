@@ -46,6 +46,7 @@ struct ContactScreen: View {
             .listStyle(.plain)
             .navigationTitle("Contacts")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden()
         }
     }
 }

@@ -127,18 +127,18 @@ struct SignUpScreenTwo: View {
     // MARK: - Firebase Auth Sign Up Method
     private func signUpUser() {
         guard !createPassword.isEmpty, !confirmPassword.isEmpty else {
-            print("Please fill in all fields")
+            Logger.log("Please fill in all fields")
             return
         }
 
         guard createPassword == confirmPassword else {
-            print("password mismatched")
+            Logger.log("password mismatched")
             return
         }
 
         Auth.auth().createUser(withEmail: userEmail, password: confirmPassword) { result, error in
             if let error = error as NSError? {
-                print("Firebase createUser error: \(error.localizedDescription)")
+                Logger.log("Firebase createUser error: \(error.localizedDescription)")
                 return
             }
 

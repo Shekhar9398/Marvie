@@ -124,9 +124,11 @@ struct HomeScreenView: View {
         Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
             withAnimation {
                 currentIndex += 1
+                Logger.log("currentIndex is \(currentIndex)")
                 
                 if currentIndex >= arr.count {
                     currentIndex = 0
+                    Logger.log("Current Index is greater than array count")
                 }
                 
                 scrollProxy.scrollTo(currentIndex, anchor: .leading)

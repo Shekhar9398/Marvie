@@ -146,16 +146,16 @@ struct SignInScreen: View {
 
     private func signInUser() {
         guard !userEmail.isEmpty, !userPassword.isEmpty else {
-            print("Please enter email and password")
+            Logger.log("Please enter email and password")
             return
         }
 
         Auth.auth().signIn(withEmail: userEmail, password: userPassword) { result, error in
             if let error = error {
-                print("Verification Failed \(error.localizedDescription)")
+                Logger.log("Verification Failed \(error.localizedDescription)")
                 return
             } else {
-                print("Verification Successful")
+                Logger.log("Verification Successfull")
                 path.append("ContentView")
             }
         }
